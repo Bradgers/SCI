@@ -95,16 +95,16 @@ def main():
     print(MB)
 
 
-    train_low_data_names = 'Your train dataset'
+    train_low_data_names = './data/bdd100k/images/100k/night'
     TrainDataset = MemoryFriendlyLoader(img_dir=train_low_data_names, task='train')
 
 
-    test_low_data_names = './data/medium'
+    test_low_data_names = './data/bdd100k/images/100k/night'
     TestDataset = MemoryFriendlyLoader(img_dir=test_low_data_names, task='test')
 
     train_queue = torch.utils.data.DataLoader(
         TrainDataset, batch_size=args.batch_size,
-        pin_memory=True, num_workers=0, shuffle=True)
+        pin_memory=True, num_workers=0, shuffle=True, generator=torch.Generator(device='cuda'))
 
     test_queue = torch.utils.data.DataLoader(
         TestDataset, batch_size=1,
